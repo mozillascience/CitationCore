@@ -13,7 +13,7 @@ function authorName(author, index) {
 /**
  * Style for the Chicago Format.
  * @class Chicago
- * @see Style
+ * @augments Style
  */
 class Chicago extends Style {
 	format(sourceData) {

@@ -27,7 +27,7 @@ function getAuthorName(author) {
 /**
  * Style for the BibTexMisc format
  * @class BibTexMiscStyle
- * @see Style
+ * @augments Style
  */
 
 class BibTexMiscStyle extends Style{

@@ -27,7 +27,7 @@ function getAuthorName(author) {
 /**
  * Style for the APA Format
  * @class APAStyle
- * @see Style
+ * @augments Style
  */
 class APAStyle extends Style {
 	format(sourceData) {

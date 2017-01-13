@@ -83,7 +83,7 @@ function gitHubApiRepoName(url) {
 /**
  * URL Handler for GitHub
  * @class GitHubHandler
- * @see SourceHandler
+ * @augments SourceHandler
  */
 class GitHubSourceHandler extends SourceHandler {
 	canHandle(url) {
