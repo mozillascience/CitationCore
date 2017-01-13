@@ -44,3 +44,6 @@ formatOptions.style = CitationCore.styles.apa;
 ```
 ### Errors
 The callback for the `generate` function second parameters is an array of errors. Not all errors are created equal. Some errors are critical and will halt generation, however some will be a warning.  In this case the citation genreation will complete. If the citationStr parameter is `null` a critical error has occured.
+
+## API Documentation
+[API Documentation](https://nokeeo.github.io/CitationCore/) is viewable on github pages or locally in the docs directory.
