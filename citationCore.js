@@ -1,7 +1,6 @@
 'use strict';
 
 let UrlResolver = require('./urlResolver');
-let ApaFormat = require('./model/formats/apa');
 
 /**
  * @module CitationCore
@@ -28,7 +27,22 @@ module.exports = {
 		else {
 			callback(null, [new Error('"' + formatOptions.url + '" is an unsupported source')]);
 		}
-	}
+	},
+
+	/**
+	 * @property {Object} styles - A collection of formatters for coercing source data into a particular format standard.
+	 */
+	styles : {
+		apa : require('./model/styles/apa'),
+		biblatexSoftware : require('./model/styles/biblatexSoftware'),
+		bibtexMisc : require('./model/styles/bibtexMisc'),
+		chicago : require('./model/styles/chicago')
+	},
+
+	/**
+	 * @property {FormatOptions} FormatOptions - A class that describtes the customizable options for formatting a citation. 
+	 */
+	FormatOptions : require('./model/formatOptions')
 }
 
 /**

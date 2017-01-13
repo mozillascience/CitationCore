@@ -9,7 +9,7 @@
 class FormatOptions {
 	constructor() {
 		this.url = '';
-		this.style = require('./formats/apa');
+		this.style = require('./styles/apa');
 	}
 }
 
