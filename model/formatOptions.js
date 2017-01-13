@@ -9,7 +9,7 @@
 class FormatOptions {
 	constructor() {
 		this.url = '';
-		this.style = require('./styles/apa');
+		this.style = require('./styles/biblatexSoftware');
 	}
 }
 
