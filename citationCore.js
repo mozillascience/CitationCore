@@ -3,13 +3,21 @@
 let UrlResolver = require('./urlResolver');
 
 /**
- * @module CitationCore
+* The callback for the CitationCore generate function
+* @callback generateCallback
+* @param {string} citaionStr - The Formatted citation
+* @param {Error[]} errors - An array of errors.  The generation of a citation may complete and the error array may not be empty.
+* These are warnings.  Critical errors will halt the generation of the citation and the first parameter will be null. 
+*/
+
+/**
  * Module for generating citations from Code Source URL's like GitHub, or FigShare.
+ * @module CitationCore
  */
 module.exports = {
-	/**
+ 	/**
 	 * @param {FormatOptions} formatOptions - The basic configuration object that is used to determine the format of the citation output string
-	 * @param {CitationCore~fetch} callback - Callback on completion of citation generation. Args are string and array of errors or warning  
+	 * @param {generateCallback} callback - Callback on completion of citation generation. Args are string and array of errors or warning  
 	 */
 	generate : (formatOptions, callback) => {
 		// Strip http:// and www. if they exists
@@ -22,7 +30,7 @@ module.exports = {
 				}
 
 				callback(citation, messages);
-			})
+			});
 		}
 		else {
 			callback(null, [new Error('"' + formatOptions.url + '" is an unsupported source')]);
@@ -33,10 +41,10 @@ module.exports = {
 	 * @property {Object} styles - A collection of formatters for coercing source data into a particular format standard.
 	 */
 	styles : {
-		apa : require('./model/styles/apa'),
-		biblatexSoftware : require('./model/styles/biblatexSoftware'),
-		bibtexMisc : require('./model/styles/bibtexMisc'),
-		chicago : require('./model/styles/chicago')
+		apa : new require('./model/styles/apa')(),
+		biblatexSoftware : new require('./model/styles/biblatexSoftware')(),
+		bibtexMisc : new require('./model/styles/bibtexMisc')(),
+		chicago : new require('./model/styles/chicago')()
 	},
 
 	/**
@@ -44,11 +52,4 @@ module.exports = {
 	 */
 	FormatOptions : require('./model/formatOptions')
 }
-
-/**
- * The callback for the CitationCore generate function
- * @callback CitationCore~generate
- * @param {string} The Formatted citation
- * @param {Array<Messages>}
- */
  

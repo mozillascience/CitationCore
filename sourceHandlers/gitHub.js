@@ -3,13 +3,14 @@
 let SourceData = require('../model/sourceData');
 let async = require('async');
 let request = require('request');
+let SourceHandler = require('./sourceHandler');
 
 const baseUrl = 'https://api.github.com/';
 const userAgent = 'SoftwareCitationCore';
 
 let urlRegex = /^github\.com\/(\w+)\/(\w+)/;
 
-/**
+/*
  * Creates and sends a request for the GitHub API.
  * @param {string} path - The path of the url.  This does not include the base path.  For example if you 
  * want to send a request to 'http://api.github.com/repos/apple/swift' use 'repos/apple/swift'.
@@ -36,7 +37,7 @@ function sendApiRequest(path, cb) {
 	});
 }
 
-/**
+/*
  * Quries the the GitHub API to get the authors of a project
  * @param {string[]} gitHubLogins - An array of GitHub username to query for information.
  * @param {Function} callback - The callback function. Follows the error response parameter pattern.
@@ -66,7 +67,7 @@ function fetchAuthors(gitHubLogins, callback) {
 	});
 }
 
-/**
+/*
  * Creates the Repo Identifier for API queries from a repo URL.
  * @param {string} url - The URL to generate the repo identifier from
  */
@@ -79,12 +80,17 @@ function gitHubApiRepoName(url) {
 	return null;
 }
 
-module.exports = {
-	canHandle : (url) => { 
+/**
+ * URL Handler for GitHub
+ * @class GitHubHandler
+ * @see SourceHandler
+ */
+class GitHubSourceHandler extends SourceHandler {
+	canHandle(url) {
 		return urlRegex.exec(url) != null;
-	},
+	}
 
-	fetch : (url, callback) => {
+	fetch(url, callback) {
 		let repoName = gitHubApiRepoName(url);
 		if(repoName != null) {
 			let sourceData = new SourceData();
@@ -159,4 +165,6 @@ module.exports = {
 		// var messages = []
 		// callback(sourceData, messages)
 	}
-};
+}
+
+module.exports = GitHubSourceHandler;

@@ -1,14 +1,18 @@
 'use strict';
 
-let GitHubSourceHandler = require('./sourceHandlers/gitHub');
+let gitHubSourceHandler = new require('./sourceHandlers/gitHub')();
 
-let handlers = [GitHubSourceHandler];
+let handlers = [gitHubSourceHandler];
 
+/**
+ * A module for resolving a URL to a source handler.
+ * @module URLResolver
+ */
 module.exports = {
 	/**
 	 * Gets the generator for the given url
-	 * @param {string} the url to pattern match to the generator
-	 * @return {Generator} the generator object for the URL or null
+	 * @param {string} url - The url to pattern match to the generator
+	 * @return {SourceHandler} the source handler for the URL or null if the URL is not supported
 	 */
 	getHandler : (url) => {
 		// See if we can match a generator

@@ -1,7 +1,9 @@
 'use strict';
 require('../../utils/array');
 
-/**
+let Style = require('./style');
+
+/*
  * Generates the string that represents the author's name in APA
  * @param {Author} author - The Author to generate the name string from
  * @return An APA representation of the authors name.  Will be null if a name cannot be generated.
@@ -23,16 +25,12 @@ function getAuthorName(author) {
 }
 
 /**
- * @module APAStyle
- * Module for formatting source data into a APA citation string
+ * Style for the APA Format
+ * @class APAStyle
+ * @see Style
  */
-module.exports = {
-	/**
-	 * Formats a source data object to a citation
-	 * @param {SourceData} sourceData - The SourceData object to generate the citation string from
-	 * @return {string} - The citation in APA format
-	 */
-	format : (sourceData) => {
+class APAStyle extends Style {
+	format(sourceData) {
 		let returnString = '';
 		
 		// Authors
@@ -72,3 +70,5 @@ module.exports = {
 		return returnString;
 	}
 }
+
+module.exports = APAStyle;

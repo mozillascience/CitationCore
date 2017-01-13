@@ -1,6 +1,8 @@
 'use strict';
 require('../../utils/array');
 
+let Style = require('./style');
+
 function authorName(author, index) {
 	if(author.firstName != null && author.lastName != null) {
 		return (index == 0) ? (author.lastName + ', ' + author.firstName) : author.firstName + ' ' + author.lastName;
@@ -8,8 +10,13 @@ function authorName(author, index) {
 	return author.lastName || author.firstName;
 }
 
-module.exports = {
-	format : (sourceData) => {
+/**
+ * Style for the Chicago Format.
+ * @class Chicago
+ * @see Style
+ */
+class Chicago extends Style {
+	format(sourceData) {
 		let returnString = '';
 		// Authors
 		sourceData.authors.forEach((author, index, array) => {
@@ -56,3 +63,5 @@ module.exports = {
 		return returnString;
 	}
 }
+
+module.exports = Chicago;

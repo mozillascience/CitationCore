@@ -1,7 +1,9 @@
 'use strict';
 require('../../utils/array');
 
-/**
+let Style = require('./style');
+
+/*
  * Generates the string that represents the author's name for the bibtex misc entry
  * @param {Author} author - The Author to generate the name string from
  * @return An APA representation of the authors name.  Will be null if a name cannot be generated.
@@ -23,17 +25,13 @@ function getAuthorName(author) {
 }
 
 /**
- * @module bibTexMiscEntryStyle
- * Module for formatting source data into a bibTeX misc type entry
+ * Style for the bibTeX misc format
+ * @class BibTexSoftwareStyle
+ * @see Style
  */
 
-module.exports = {
-    /**
-	 * Formats a source data object to a citation
-	 * @param {SourceData} sourceData - The SourceData object to generate the citation string from
-	 * @return {string} - The bibTeX Misc Entry
-	 */
-    format : (sourceData) => {
+class BibTexSoftwareStyle extends Style {
+	format(url) {
 		let returnString = '@software{';
 	            
         // Title Block
@@ -96,7 +94,8 @@ module.exports = {
 
         returnString += "}\n";
 		return returnString;
-
-    }
+	}
 }
+
+module.exports = BibTexSoftwareStyle;
     

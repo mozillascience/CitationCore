@@ -13,6 +13,7 @@
 */
 
 /**
+ * An object representing a Code Source Data.
  * @class
  * @prop {string} name - Name of the project
  * @prop {Array<Author>} authors - List of author objects
