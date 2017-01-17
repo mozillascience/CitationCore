@@ -12,12 +12,12 @@ npm insall citation-core
 To generate a citation you must provide at least a url.
 
 ```javascript
-var CitationCore = require('citation-core');
+const CitationCore = require('citation-core');
 
-var formatOptions = new CitationCore.FormatOptions();
+let formatOptions = new CitationCore.FormatOptions();
 formatOptions.url = 'http://github.com/apple/swift';
 
-CitationCore.generate(formatOptions, function(citationStr, errors) {
+CitationCore.generate(formatOptions, (citationStr, errors) => {
 	// Handle completion of citation generation
 });
 ```
