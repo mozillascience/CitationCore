@@ -1,26 +1,26 @@
-'use strict';
+
 
 const SourceData = require('../../model/sourceData');
 
-let sourceData = new SourceData();
+const sourceData = new SourceData();
 sourceData.name = 'Xanadu';
 
 sourceData.authors = [
-	{
-		firstName: 'Geddy',
-		lastName: 'Lee',
-		email: 'geddy@rush.com',
-	},
-	{
-		firstName: 'Alex',
-		lastName: 'Lifeson',
-		email: 'alex@rush.com',
-	},
-	{
-		firstName: 'Neil',
-		lastName: 'Peart',
-		email: 'neil@rush.com',
-	},
+  {
+    firstName: 'Geddy',
+    lastName: 'Lee',
+    email: 'geddy@rush.com',
+  },
+  {
+    firstName: 'Alex',
+    lastName: 'Lifeson',
+    email: 'alex@rush.com',
+  },
+  {
+    firstName: 'Neil',
+    lastName: 'Peart',
+    email: 'neil@rush.com',
+  },
 ];
 
 sourceData.version = '1.0.0';

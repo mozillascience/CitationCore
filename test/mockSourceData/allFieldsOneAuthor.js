@@ -1,16 +1,16 @@
-'use strict';
+
 
 const SourceData = require('../../model/sourceData');
 
-let sourceData = new SourceData();
+const sourceData = new SourceData();
 sourceData.name = 'Red Barchetta';
 
 sourceData.authors = [
-	{
-		firstName: 'Geddy',
-		lastName: 'Lee',
-		'email': 'geddy@rush.com',
-	},
+  {
+    firstName: 'Geddy',
+    lastName: 'Lee',
+    email: 'geddy@rush.com',
+  },
 ];
 
 sourceData.version = '1.0.0';

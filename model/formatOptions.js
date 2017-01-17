@@ -1,4 +1,4 @@
-'use strict';
+const BibTextSoftwareStyle = require('./styles/biblatexSoftware');
 
 /**
  * @class
@@ -8,10 +8,10 @@
  * @memberof model
  */
 class FormatOptions {
-	constructor() {
-		this.url = '';
-		this.style = require('./styles/biblatexSoftware');
-	}
+  constructor() {
+    this.url = '';
+    this.style = new BibTextSoftwareStyle();
+  }
 }
 
 module.exports = FormatOptions;

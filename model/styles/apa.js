@@ -1,7 +1,6 @@
-'use strict';
 require('../../utils/array');
 
-let Style = require('./style');
+const Style = require('./style');
 
 /*
  * Generates the string that represents the author's name in APA
@@ -9,19 +8,17 @@ let Style = require('./style');
  * @return An APA representation of the authors name.  Will be null if a name cannot be generated.
  */
 function getAuthorName(author) {
-	// If the author has a name
-	if(author.lastName != null || author.firstName != null) {
-		// If we have the authors first and last name
-		if(author.lastName && author.firstName) {
-			 return author.lastName + ', ' + author.firstName[0] + '.';
-		}
-		// If we just have the authors first or last name
-		else {
-			return (author.lastName != null) ? author.lastName : author.firstName;
-		}
-	}
+  // If the author has a name
+  if (author.lastName != null || author.firstName != null) {
+    // If we have the authors first and last name
+    if (author.lastName && author.firstName) {
+      return `${author.lastName}, ${author.firstName[0]}.`;
+    }
+    // If we just have the authors first or last name
+    return (author.lastName != null) ? author.lastName : author.firstName;
+  }
 
-	return null;
+  return null;
 }
 
 /**
@@ -31,45 +28,44 @@ function getAuthorName(author) {
  * @memberof model.styles
  */
 class APA extends Style {
-	format(sourceData) {
-		let returnString = '';
-		
-		// Authors
-		let numAuthors = sourceData.authors.length;
-		sourceData.authors.forEach((author, index, array) => {
-			let authorName = getAuthorName(author);
-			returnString += (authorName != null) ? authorName : '';
+  static format(sourceData) {
+    let returnString = '';
 
-			if(array.isNFromLastIndex(index, 1)) {
-				returnString += ' & ';
-			}
-			else if(!array.isLastIndex(index)) {
-				returnString += ', ';
-			}
-		});
+    // Authors
+    sourceData.authors.forEach((author, index, array) => {
+      const authorName = getAuthorName(author);
+      returnString += (authorName != null) ? authorName : '';
 
-		// Year
-		if(sourceData.releaseDate != null) {
-			returnString += ' (' + sourceData.releaseDate.getFullYear() + ').';
-		}
+      if (array.isNFromLastIndex(index, 1)) {
+        returnString += ' & ';
+      }
+      else if (!array.isLastIndex(index)) {
+        returnString += ', ';
+      }
+    });
 
-		// Title
-		if(sourceData.name != null) {
-			returnString += ' "' + sourceData.name + '".';
-		} 
+    // Year
+    if (sourceData.releaseDate != null) {
+      returnString += ` (${sourceData.releaseDate.getFullYear()}).`;
+    }
 
-		// Version
-		if(sourceData.version != null) {
-			returnString += ' Version: ' + sourceData.version + '.';
-		}
+    // Title
+    if (sourceData.name != null) {
+      returnString += ` "${sourceData.name}".`;
+    }
 
-		// URL
-		if(sourceData.url != null) {
-			returnString += ' Retrieved From: ' + sourceData.url; 
-		}
+    // Version
+    if (sourceData.version != null) {
+      returnString += ` Version: ${sourceData.version}.`;
+    }
 
-		return returnString;
-	}
+    // URL
+    if (sourceData.url != null) {
+      returnString += ` Retrieved From: ${sourceData.url}`;
+    }
+
+    return returnString;
+  }
 }
 
 module.exports = APA;

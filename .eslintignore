@@ -1,0 +1,6 @@
+/docs/*
+/node_modules/*
+/utils/array.js
+**/*.md
+**/*.json
+**/*.conf

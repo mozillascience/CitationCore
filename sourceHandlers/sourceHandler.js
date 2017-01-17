@@ -4,23 +4,23 @@
  * @memberof sourceHandlers
  */
 class SourceHandler {
-	/**
-	 * Determines if the handler can process the given URL.
-	 * @param {string} url - The url to process
-	 * @return {boolean} - True if teh handler can process the given URL.
-	 */ 
-	canHandle(url) {
-		throw new Error("canHandle not implemented");
-	}
+  /**
+   * Determines if the handler can process the given URL.
+   * @param {string} url - The url to process
+   * @return {boolean} - True if teh handler can process the given URL.
+   */
+  static canHandle(url) {
+    throw new Error('canHandle not implemented');
+  }
 
-	/**
-	 * Fetches the given data associated with the code source
-	 * @param {string} url - The url of the code source
-	 * @param {SourceHandler~fetchCallback} - The callback for the fetch operation.
-	 */
-	fetch(url, callback) {
-		throw new Error("fetch not implemented")
-	}
+  /**
+   * Fetches the given data associated with the code source
+   * @param {string} url - The url of the code source
+   * @param {SourceHandler~fetchCallback} - The callback for the fetch operation.
+   */
+  static fetch(url, callback) {
+    throw new Error('fetch not implemented');
+  }
 }
 
 /**

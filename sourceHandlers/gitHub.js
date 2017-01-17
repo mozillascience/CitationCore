@@ -1,40 +1,40 @@
-'use strict';
 
-let SourceData = require('../model/sourceData');
-let async = require('async');
-let request = require('request');
-let SourceHandler = require('./sourceHandler');
+
+const SourceData = require('../model/sourceData');
+const async = require('async');
+const request = require('request');
+const SourceHandler = require('./sourceHandler');
 
 const baseUrl = 'https://api.github.com/';
 const userAgent = 'SoftwareCitationCore';
 
-let urlRegex = /^github\.com\/(\w+)\/(\w+)/;
+const urlRegex = /^github\.com\/(\w+)\/(\w+)/;
 
 /*
  * Creates and sends a request for the GitHub API.
- * @param {string} path - The path of the url.  This does not include the base path.  For example if you 
+ * @param {string} path - The path of the url.  This does not include the base path.  For example if you
  * want to send a request to 'http://api.github.com/repos/apple/swift' use 'repos/apple/swift'.
  * @param {Function} cb - The callback function. Follows the error/response parameter pattern.
  * The response param will be json parsed object.
  */
 function sendApiRequest(path, cb) {
-	let options = {
-		url : baseUrl + path,
-		headers: {
-    		'User-Agent': 'request'
-  		}
-	}
+  const options = {
+    url: baseUrl + path,
+    headers: {
+      'User-Agent': userAgent,
+    },
+  };
 
-	request(options, (error, response, body) => {
-		let parsedBody = (body != null) ? JSON.parse(body) : null;
-		if(error == null && response.statusCode != 200) {
-			let errorMessage = 'Received a ' + response.statusCode + ' when making a request to ' + options.url;
-			cb(new Error(errorMessage, parsedBody));
-		}
-		else {
-			cb(error, parsedBody);
-		}
-	});
+  request(options, (error, response, body) => {
+    const parsedBody = (body != null) ? JSON.parse(body) : null;
+    if (error == null && response.statusCode !== 200) {
+      const errorMessage = `Received a ${response.statusCode} when making a request to ${options.url}`;
+      cb(new Error(errorMessage, parsedBody));
+    }
+    else {
+      cb(error, parsedBody);
+    }
+  });
 }
 
 /*
@@ -44,27 +44,25 @@ function sendApiRequest(path, cb) {
  * The response parameter is an array of Author objects
  */
 function fetchAuthors(gitHubLogins, callback) {
-	// Generate the requests that will feth the github user information
-	let userFetchOperations = gitHubLogins.map((obj, index) => {
-		return (cb) => {
-			sendApiRequest('users/' + obj, (error, res) => {
-				cb(error, res);
-			});
-		}
-	});
+  // Generate the requests that will feth the github user information
+  const userFetchOperations = gitHubLogins.map((obj, index) => (cb) => {
+    sendApiRequest(`users/${obj}`, (error, res) => {
+      cb(error, res);
+    });
+  });
 
-	// Execute those requests in parallel and generate the generic user objects 
-	async.parallel(userFetchOperations, (error, results) => {
-		callback(error, results.map((obj) => {
-			let namePieces = (obj.name != null && typeof(obj.name) == 'string') ? obj.name.split(' ') : [];
-			return {
-				firstName : (namePieces.length > 0) ? namePieces[0] : null,
-				middleName : (namePieces.length > 2) ? namePieces[1] : null,
-				lastName : (namePieces.length > 2) ? namePieces[2] : namePieces[1],
-				email : obj.email
-			}
-		}));
-	});
+  // Execute those requests in parallel and generate the generic user objects
+  async.parallel(userFetchOperations, (error, results) => {
+    callback(error, results.map((obj) => {
+      const namePieces = (obj.name != null && typeof (obj.name) === 'string') ? obj.name.split(' ') : [];
+      return {
+        firstName: (namePieces.length > 0) ? namePieces[0] : null,
+        middleName: (namePieces.length > 2) ? namePieces[1] : null,
+        lastName: (namePieces.length > 2) ? namePieces[2] : namePieces[1],
+        email: obj.email,
+      };
+    }));
+  });
 }
 
 /*
@@ -72,12 +70,12 @@ function fetchAuthors(gitHubLogins, callback) {
  * @param {string} url - The URL to generate the repo identifier from
  */
 function gitHubApiRepoName(url) {
-	let matches = urlRegex.exec(url);
-	if(matches != null && matches.length == 3) {
-		return matches[1] + '/' + matches[2];
-	}
+  const matches = urlRegex.exec(url);
+  if (matches != null && matches.length === 3) {
+    return `${matches[1]}/${matches[2]}`;
+  }
 
-	return null;
+  return null;
 }
 
 /**
@@ -87,68 +85,63 @@ function gitHubApiRepoName(url) {
  * @augments sourceHandlers.SourceHandler
  */
 class GitHub extends SourceHandler {
-	canHandle(url) {
-		return urlRegex.exec(url) != null;
-	}
+  static canHandle(url) {
+    return urlRegex.exec(url) != null;
+  }
 
-	fetch(url, callback) {
-		let repoName = gitHubApiRepoName(url);
-		if(repoName != null) {
-			let sourceData = new SourceData();
-			async.parallel([
-				// Fetches general info on the Repo
-				(cb) => {
-					sendApiRequest('repos/' + repoName, cb);	
-				},
-				//Fetches the author data
-				(cb) => {
-					sendApiRequest('repos/' + repoName + '/contributors', (error, users) => {
-						if(error == null) {
-							let userLogins = users.map((obj) => {
-								return obj.login;
-							}).filter((obj, index) => {
-								return index < 3;
-							});
+  static fetch(url, callback) {
+    const repoName = gitHubApiRepoName(url);
+    if (repoName != null) {
+      async.parallel([
+        // Fetches general info on the Repo
+        (cb) => {
+          sendApiRequest(`repos/${repoName}`, cb);
+        },
+        // Fetches the author data
+        (cb) => {
+          sendApiRequest(`repos/${repoName}/contributors`, (error, users) => {
+            if (error == null) {
+              const userLogins = users.map(obj => obj.login).filter((obj, index) => index < 3);
 
-							fetchAuthors(userLogins, cb);
-						}
-						else {
-							cb(error, users);
-						}
-					});
-				},
-				// Fetch Version data
-				(cb) => {
-					sendApiRequest('repos/' + repoName + '/releases', cb);
-				}
-			], (error, results) => {
-				if(error == null) {
-					let sourceData = new SourceData();
+              fetchAuthors(userLogins, cb);
+            }
+            else {
+              cb(error, users);
+            }
+          });
+        },
+        // Fetch Version data
+        (cb) => {
+          sendApiRequest(`repos/${repoName}/releases`, cb);
+        },
+      ], (error, results) => {
+        if (error == null) {
+          const sourceData = new SourceData();
 
-					// General info
-					let generalData = results[0];
-					sourceData.name = generalData['name'];
-					sourceData.url = generalData['homepage'] || generalData['html_url'];
-					sourceData.releaseDate = new Date(generalData['updated_at']);
-					sourceData.description = generalData['description'];
+          // General info
+          const generalData = results[0];
+          sourceData.name = generalData.name;
+          sourceData.url = generalData.homepage || generalData.html_url;
+          sourceData.releaseDate = new Date(generalData.updated_at);
+          sourceData.description = generalData.description;
 
-					// Author Info
-					sourceData.authors = results[1];
+          // Author Info
+          sourceData.authors = results[1];
 
-					// Version Data
-					let versions = results[2];
-					if(versions.length > 0) {
-						sourceData.version = versions[0].name || versions[1].tag_name;
-					}
+          // Version Data
+          const versions = results[2];
+          if (versions.length > 0) {
+            sourceData.version = versions[0].name || versions[1].tag_name;
+          }
 
-					callback(sourceData, []);
-				}
-				else {
-					callback(null, [error]);
-				}
-			});
-		}
-	}
+          callback(sourceData, []);
+        }
+        else {
+          callback(null, [error]);
+        }
+      });
+    }
+  }
 }
 
 module.exports = GitHub;

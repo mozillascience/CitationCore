@@ -1,13 +1,12 @@
-'use strict';
 require('../../utils/array');
 
-let Style = require('./style');
+const Style = require('./style');
 
 function authorName(author, index) {
-	if(author.firstName != null && author.lastName != null) {
-		return (index == 0) ? (author.lastName + ', ' + author.firstName) : author.firstName + ' ' + author.lastName;
-	}
-	return author.lastName || author.firstName;
+  if (author.firstName != null && author.lastName != null) {
+    return (index === 0) ? (`${author.lastName}, ${author.firstName}`) : `${author.firstName} ${author.lastName}`;
+  }
+  return author.lastName || author.firstName;
 }
 
 /**
@@ -17,52 +16,56 @@ function authorName(author, index) {
  * @memberof model.styles
  */
 class Chicago extends Style {
-	format(sourceData) {
-		let returnString = '';
-		// Authors
-		sourceData.authors.forEach((author, index, array) => {
-			returnString += authorName(author, index);
+  static format(sourceData) {
+    let returnString = '';
+    // Authors
+    sourceData.authors.forEach((author, index, array) => {
+      returnString += authorName(author, index);
 
-			//Second to last
-			if(array.isNFromLastIndex(index, 1)) {
-				returnString += ' and ';
-			}
-			else if(array.isLastIndex(index)) {
-				returnString += '.';
-			}
-			else {
-				returnString += ', ';
-			}
-		});
+      // Second to last
+      if (array.isNFromLastIndex(index, 1)) {
+        returnString += ' and ';
+      }
+      else if (array.isLastIndex(index)) {
+        returnString += '.';
+      }
+      else {
+        returnString += ', ';
+      }
+    });
 
-		// Title
-		if(sourceData.name != null) {
-			returnString += ' "' + sourceData.name + '".'
-		}
+    // Title
+    if (sourceData.name != null) {
+      returnString += ` "${sourceData.name}".`;
+    }
 
-		// Publication information (Year, version)
-		let pubInfo = [];
-		if(sourceData.releaseDate != null) {pubInfo.push(sourceData.releaseDate.getFullYear());}
-		if(sourceData.version != null) {pubInfo.push(sourceData.version);}
+    // Publication information (Year, version)
+    const pubInfo = [];
+    if (sourceData.releaseDate != null) {
+      pubInfo.push(sourceData.releaseDate.getFullYear());
+    }
+    if (sourceData.version != null) {
+      pubInfo.push(sourceData.version);
+    }
 
-		if(pubInfo.length > 0) {
-			returnString += '(';
-			pubInfo.forEach((obj, index, array) => {
-				returnString += obj;
-				if(!array.isLastIndex(index)) {
-					returnString += ', ';
-				}
-			});
-			returnString += '). ';
-		}
+    if (pubInfo.length > 0) {
+      returnString += '(';
+      pubInfo.forEach((obj, index, array) => {
+        returnString += obj;
+        if (!array.isLastIndex(index)) {
+          returnString += ', ';
+        }
+      });
+      returnString += '). ';
+    }
 
-		// URL
-		if(sourceData.url != null) {
-			returnString += sourceData.url;
-		}
+    // URL
+    if (sourceData.url != null) {
+      returnString += sourceData.url;
+    }
 
-		return returnString;
-	}
+    return returnString;
+  }
 }
 
 module.exports = Chicago;

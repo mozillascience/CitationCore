@@ -1,0 +1,11 @@
+{
+    "extends": "airbnb-base",
+    "plugins": [
+        "import"
+    ],
+    "rules": {
+        "max-len": "off",
+        "brace-style": ["error", "stroustrup"],
+        "no-unused-vars": ["error", { "args": "none" }]
+    }
+}
