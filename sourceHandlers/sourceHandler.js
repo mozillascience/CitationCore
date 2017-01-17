@@ -1,6 +1,7 @@
 /**
  * An abstract class responsible for coercing a code sources data into a {SourceData} object. This is not a stand
- * @class SourceHandler
+ * @class
+ * @memberof sourceHandlers
  */
 class SourceHandler {
 	/**

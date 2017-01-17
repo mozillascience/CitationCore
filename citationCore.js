@@ -16,7 +16,7 @@ let UrlResolver = require('./urlResolver');
  */
 module.exports = {
  	/**
-	 * @param {FormatOptions} formatOptions - The basic configuration object that is used to determine the format of the citation output string
+	 * @param {model.FormatOptions} formatOptions - The basic configuration object that is used to determine the format of the citation output string
 	 * @param {generateCallback} callback - Callback on completion of citation generation. Args are string and array of errors or warning  
 	 */
 	generate : (formatOptions, callback) => {
@@ -48,7 +48,7 @@ module.exports = {
 	},
 
 	/**
-	 * @property {FormatOptions} FormatOptions - A class that describtes the customizable options for formatting a citation. 
+	 * @property {model.FormatOptions} FormatOptions - A class that describtes the customizable options for formatting a citation. 
 	 */
 	FormatOptions : require('./model/formatOptions')
 }

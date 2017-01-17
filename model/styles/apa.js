@@ -26,10 +26,11 @@ function getAuthorName(author) {
 
 /**
  * Style for the APA Format
- * @class APAStyle
- * @augments Style
+ * @class
+ * @augments model.styles.Style
+ * @memberof model.styles
  */
-class APAStyle extends Style {
+class APA extends Style {
 	format(sourceData) {
 		let returnString = '';
 		
@@ -71,4 +72,4 @@ class APAStyle extends Style {
 	}
 }
 
-module.exports = APAStyle;
+module.exports = APA;

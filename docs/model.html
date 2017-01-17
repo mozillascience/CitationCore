@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: CitationCore</title>
+    <title>JSDoc: Namespace: model</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: CitationCore</h1>
+    <h1 class="page-title">Namespace: model</h1>
 
     
 
@@ -28,8 +28,7 @@
 
 <header>
     
-        
-            
+        <h2>model</h2>
         
     
 </header>
@@ -38,24 +37,8 @@
     <div class="container-overview">
     
         
-            <div class="description">Module for generating citations from Code Source URL's like GitHub, or FigShare.</div>
-        
 
         
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <dl class="details">
@@ -87,7 +70,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="citationCore.js.html">citationCore.js</a>, <a href="citationCore.js.html#line13">line 13</a>
+        <a href="model_sourceData.js.html">model/sourceData.js</a>, <a href="model_sourceData.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -97,20 +80,6 @@
 
     
 </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         
@@ -122,263 +91,56 @@
     
 
     
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="model.FormatOptions.html">FormatOptions</a></dt>
+            <dd></dd>
+        
+            <dt><a href="model.SourceData.html">SourceData</a></dt>
+            <dd></dd>
+        </dl>
+    
 
      
 
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<h4 class="name" id=".FormatOptions"><span class="type-signature">(static) </span>FormatOptions<span class="type-signature"></span></h4>
-
-
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
 
     
 
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
     
+        <h3 class="subsection-title">Type Definitions</h3>
 
-        <tr>
-            
-                <td class="name"><code>FormatOptions</code></td>
-            
-
-            <td class="type">
-            
+        
                 
-<span class="param-type"><a href="model.FormatOptions.html">model.FormatOptions</a></span>
+<h4 class="name" id=".Author">Author</h4>
 
 
+
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
             
-            </td>
-
-            
-
-            
-
-            <td class="description last">A class that describtes the customizable options for formatting a citation.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="citationCore.js.html">citationCore.js</a>, <a href="citationCore.js.html#line53">line 53</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".styles"><span class="type-signature">(static) </span>styles<span class="type-signature"></span></h4>
-
-
-
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>styles</code></td>
-            
-
-            <td class="type">
-            
-                
 <span class="param-type">Object</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A collection of formatters for coercing source data into a particular format standard.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
+        </li>
+    </ul>
 
 
 
 
-<dl class="details">
+
+    <h5 class="subsection-title">Properties:</h5>
 
     
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="citationCore.js.html">citationCore.js</a>, <a href="citationCore.js.html#line43">line 43</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id=".generate"><span class="type-signature">(static) </span>generate<span class="signature">(formatOptions, callback)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
+<table class="props">
     <thead>
     <tr>
         
@@ -400,13 +162,13 @@
 
         <tr>
             
-                <td class="name"><code>formatOptions</code></td>
+                <td class="name"><code>firstName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="model.FormatOptions.html">model.FormatOptions</a></span>
+<span class="param-type">string</span>
 
 
             
@@ -416,20 +178,20 @@
 
             
 
-            <td class="description last">The basic configuration object that is used to determine the format of the citation output string</td>
+            <td class="description last">The First name of the Author. May be null.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>callback</code></td>
+                <td class="name"><code>middleName</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#generateCallback">generateCallback</a></span>
+<span class="param-type">string</span>
 
 
             
@@ -439,14 +201,58 @@
 
             
 
-            <td class="description last">Callback on completion of citation generation. Args are string and array of errors or warning</td>
+            <td class="description last">The Middle of the Author. May be null.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lastName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The Last name of the Author. May be null.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The email address of the author</td>
         </tr>
 
     
     </tbody>
 </table>
-
-
 
 
 
@@ -480,7 +286,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="citationCore.js.html">citationCore.js</a>, <a href="citationCore.js.html#line22">line 22</a>
+        <a href="model_sourceData.js.html">model/sourceData.js</a>, <a href="model_sourceData.js.html#line5">line 5</a>
     </li></ul></dd>
     
 
@@ -496,19 +302,150 @@
 
 
 
+            
+                
+<h4 class="name" id=".UID">UID</h4>
 
 
 
 
 
 
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
 
 
 
 
-        
+
+    <h5 class="subsection-title">Properties:</h5>
+
     
 
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Only DOI for now</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The actual DOI value</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="model_sourceData.js.html">model/sourceData.js</a>, <a href="model_sourceData.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
     
 
     

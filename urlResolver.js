@@ -1,6 +1,6 @@
 'use strict';
 
-let gitHubSourceHandler = new require('./sourceHandlers/gitHub')();
+let gitHubSourceHandler = new (require('./sourceHandlers/gitHub'))();
 
 let handlers = [gitHubSourceHandler];
 

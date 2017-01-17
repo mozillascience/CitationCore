@@ -12,8 +12,9 @@ function authorName(author, index) {
 
 /**
  * Style for the Chicago Format.
- * @class Chicago
- * @augments Style
+ * @class
+ * @augments model.styles.Style
+ * @memberof model.styles
  */
 class Chicago extends Style {
 	format(sourceData) {

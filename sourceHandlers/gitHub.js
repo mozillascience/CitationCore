@@ -83,9 +83,10 @@ function gitHubApiRepoName(url) {
 /**
  * URL Handler for GitHub
  * @class GitHubHandler
- * @augments SourceHandler
+ * @memberof sourceHandlers
+ * @augments sourceHandlers.SourceHandler
  */
-class GitHubSourceHandler extends SourceHandler {
+class GitHub extends SourceHandler {
 	canHandle(url) {
 		return urlRegex.exec(url) != null;
 	}
@@ -147,24 +148,7 @@ class GitHubSourceHandler extends SourceHandler {
 				}
 			});
 		}
-
-		// var sourceData = new SourceData();
-		// sourceData.name = 'Project Name';
-		// sourceData.authors = [
-		// 	{firstName :'Eric', lastName : 'Lee', email :'abc@rit.edu'},
-		// 	{firstName :'Colin', lastName : 'O\'Neill', email :'def@rit.edu'}
-		// ];
-		// sourceData.version = '1.0';
-		// sourceData.releaseDate = new Date();
-		// sourceData.url = url;
-		// sourceData.licence = 'MIT';
-		// sourceData.description = 'This is a test project';
-		// sourceData.uid = null;
-		// console.log(sourceData);
-
-		// var messages = []
-		// callback(sourceData, messages)
 	}
 }
 
-module.exports = GitHubSourceHandler;
+module.exports = GitHub;

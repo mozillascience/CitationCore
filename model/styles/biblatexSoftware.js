@@ -26,11 +26,12 @@ function getAuthorName(author) {
 
 /**
  * Style for the bibTeX misc format
- * @class BibTexSoftwareStyle
- * @augments Style
+ * @class
+ * @augments model.styles.Style
+ * @memberof model.styles
  */
 
-class BibTexSoftwareStyle extends Style {
+class BibTexSoftware extends Style {
 	format(url) {
 		let returnString = '@software{';
 	            
@@ -97,5 +98,5 @@ class BibTexSoftwareStyle extends Style {
 	}
 }
 
-module.exports = BibTexSoftwareStyle;
+module.exports = BibTexSoftware;
     
