@@ -11,7 +11,8 @@ npm insall citation-core
 If you are interested in contributing to citation-core please follow these install instructions. They will add a pre-commit hook that will run our linter and reject commits that do not meet the project's coding standards.  We are adhereing to the [AirBnb style guide](https://github.com/airbnb/javascript). 
 ```
 git clone https://github.com/mozillascience/CitationCore.git
-cp ./CitationCore/dev/pre-commit ./CitationCore/.git/hooks/
+cd CitationCore
+cp dev/pre-commit .git/hooks/
 ```
 ## Usage
 To generate a citation you must provide at least a url.
