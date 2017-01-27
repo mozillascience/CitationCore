@@ -7,10 +7,14 @@ CitationCore is distributed through npm. To install:
 ```
 npm insall citation-core
 ```
-
+## Contributor Install
+If you are interested in contributing to citation-core please follow these install instructions. They will add a pre-commit hook that will run our linter and reject commits that do not meet the project's coding standards.  We are adhereing to the [AirBnb style guide](https://github.com/airbnb/javascript). 
+```
+git clone https://github.com/mozillascience/CitationCore.git
+cp ./CitationCore/dev/pre-commit ./CitationCore/.git/hooks/
+```
 ## Usage
 To generate a citation you must provide at least a url.
-
 ```javascript
 const CitationCore = require('citation-core');
 
@@ -46,4 +50,4 @@ formatOptions.style = CitationCore.styles.apa;
 The callback for the `generate` function second parameters is an array of errors. Not all errors are created equal. Some errors are critical and will halt generation, however some will be a warning.  In this case the citation genreation will complete. If the citationStr parameter is `null` a critical error has occured.
 
 ## API Documentation
-[API Documentation](https://nokeeo.github.io/CitationCore/) is viewable on github pages or locally in the docs directory.
+[API Documentation](https://mozillascience.github.io/CitationCore/) is viewable on github pages or locally in the docs directory.
