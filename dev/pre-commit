@@ -1,0 +1,27 @@
+#!/bin/bash
+
+esLintPath="node_modules/eslint/bin/eslint.js"
+esLintConfig=".eslintrc.json"
+
+files=$(git diff --cached --name-only | grep "\.js$")
+
+echo "Running ESLint on JS files:"
+
+passing=true
+for file in ${files}; do
+  output="$($esLintPath --fix ${file})"
+
+  echo "$output"
+  check="$(echo "$output" | grep "0 errors")"
+  if [ "$check" == "" ] && [ "$output" != "" ]; then
+    passing=false
+  fi
+done
+
+if $passing; then
+  echo "Linter sucessfully passed. Commiting..."
+  exit 0
+else
+  echo "Linter failed. Please correct errors. Aborting commit..."
+  exit 1
+fi
