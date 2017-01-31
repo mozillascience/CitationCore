@@ -12,7 +12,7 @@ describe('BibTexMiscStyle', () => {
       assert.equal(formattedString.includes("month = {11},"),true);
     });
     
-    it('Title field one author', () => {
+    it('Title field, one author', () => {
       let formattedString = bibtexmisc.format(oneAuthorSourceData);
       assert.equal(formattedString.includes("title = {Red Barchetta},"),true);
     });
