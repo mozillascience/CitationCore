@@ -1,5 +1,3 @@
-
-
 require('../../utils/array');
 
 const Style = require('./style');
@@ -94,4 +92,3 @@ class BibTexSoftware extends Style {
 }
 
 module.exports = BibTexSoftware;
-

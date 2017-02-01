@@ -1,6 +1,6 @@
 {
   "name": "citation-core",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A Framework for generating a citation from several sources",
   "main": "citationCore.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "keywords": [
     "citation"
   ],
-  "author": "Eric Lee",
+  "contributors": ["Eric Lee <nokeeo@me.com>", "Robert Lowe <rdl8212@rit.edu>", "Colin O'Neill <cmo6720@rit.edu>", "Samuel Mosher <sam1360@rit.edu>", "mozillafoundation"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mozillascience/software-citation-tools/issues"
