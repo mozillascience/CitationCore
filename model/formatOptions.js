@@ -10,7 +10,7 @@ const BibTextSoftwareStyle = require('./styles/biblatexSoftware');
 class FormatOptions {
   constructor() {
     this.url = '';
-    this.style = new BibTextSoftwareStyle();
+    this.style = BibTextSoftwareStyle;
   }
 }
 
