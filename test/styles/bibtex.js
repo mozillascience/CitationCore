@@ -14,7 +14,7 @@ describe('BibTexMiscStyle', () => {
       assert.equal(formattedString.includes('month = {11},'), true);
     });
 
-    it('Title field one author', () => {
+    it('Title field, one author', () => {
       assert.equal(formattedString.includes('title = {Red Barchetta},'), true);
     });
 
