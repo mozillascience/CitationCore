@@ -59,7 +59,7 @@ class BibTexSoftware extends Style {
         returnString += ' and ';
       }
       else if (!array.isLastIndex(index)) {
-        returnString += ', ';
+        returnString += ' and ';
       }
     });
     returnString += '}';
