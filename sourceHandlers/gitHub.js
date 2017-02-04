@@ -8,7 +8,7 @@ const SourceHandler = require('./sourceHandler');
 const baseUrl = 'https://api.github.com/';
 const userAgent = 'SoftwareCitationCore';
 
-const urlRegex = /^github\.com\/(\w+)\/(\w+)/;
+const urlRegex = /^github\.com\/([\w,\-]+)\/([\w,\-]+)/;
 
 /*
  * Creates and sends a request for the GitHub API.
