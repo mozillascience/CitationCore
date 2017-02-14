@@ -1,7 +1,7 @@
 /* global describe it */
 
 const assert = require('assert');
-const GitHubHandler = require('../sourceHandlers/github');
+const GitHubHandler = require('../sourceHandlers/gitHub');
 const UrlResolverManager = require('../urlResolverManager');
 
 describe('UrlResolverManager', () => {

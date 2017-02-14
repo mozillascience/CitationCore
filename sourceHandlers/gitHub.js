@@ -122,10 +122,11 @@ class GitHubAPIHandler extends SourceHandler {
     async.parallel(userFetchOperations, (error, results) => {
       callback(error, results.map((obj) => {
         const namePieces = (obj.name != null && typeof (obj.name) === 'string') ? obj.name.split(' ') : [];
+
         return {
-          firstName: (namePieces.length > 0) ? namePieces[0] : null,
-          middleName: (namePieces.length > 2) ? namePieces[1] : null,
-          lastName: (namePieces.length > 2) ? namePieces[2] : namePieces[1],
+          lastName: (namePieces.length > 0) ? namePieces.pop() : null,
+          middleName: (namePieces.length > 1) ? namePieces.splice(1 - namePieces.length).join(' ') : null,
+          firstName: (namePieces.length > 0) ? namePieces.pop() : null,
           email: obj.email,
         };
       }));

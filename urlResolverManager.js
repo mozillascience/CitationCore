@@ -1,4 +1,4 @@
-const GithubAPI = require('./urlResolvers/github');
+const GithubAPI = require('./urlResolvers/gitHub');
 
 const resolvers = [GithubAPI];
 
@@ -18,8 +18,8 @@ module.exports = {
       handlers = handlers.concat(obj.getSourceHandlers(url));
     });
 
-    // TODO: There should be some logic based on environment settings to distill array down to one handler
-    // For now we will select the first one
+    // TODO: (Issue #58) There should be some logic based on environment settings to distill array down to one handler
+    // For now we will just pop the array.
     return (handlers.length > 0) ? handlers.pop() : null;
   },
 };

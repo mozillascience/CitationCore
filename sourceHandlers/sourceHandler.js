@@ -1,5 +1,5 @@
 /**
- * An abstract class responsible for coercing a code sources data into a {SourceData} object. This is not a stand
+ * An abstract class responsible for coercing a code sources data into a {SourceData} object.
  * @class
  * @memberof sourceHandlers
  * @property {String} url - A URL to the Code Source to fetch data from

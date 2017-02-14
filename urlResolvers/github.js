@@ -1,8 +1,8 @@
 const URLResolver = require('./urlResolver');
-const GitHubAPIHandler = require('../sourceHandlers/github');
+const GitHubAPIHandler = require('../sourceHandlers/gitHub');
 
-const stripHttp = /^(http(s)?:\/\/)?(www.)?/;
-const urlRegex = /^github\.com\/([\w,-]+)\/([\w,-]+)/;
+const stripHttp = /^(https?:\/\/)?(www\.)?/;
+const urlRegex = /^github\.com\/([\w-]+)\/([\w-]+)/;
 
 const apiBaseUrl = 'https://api.github.com/';
 
