@@ -1,4 +1,4 @@
-const UrlResolver = require('./urlResolver');
+const UrlResolverManager = require('./urlResolverManager');
 const FormatOptions = require('./model/formatOptions');
 
 const APAStyle = require('./model/styles/apa');
@@ -25,10 +25,9 @@ module.exports = {
      */
   generate: (formatOptions, callback) => {
     // Strip http:// and www. if they exists
-    const sanitizedUrl = formatOptions.url.replace(/^http(s)?:\/\//, '').replace(/^www\./, '');
-    const urlHandler = UrlResolver.getHandler(sanitizedUrl);
+    const urlHandler = UrlResolverManager.getHandler(formatOptions.url);
     if (urlHandler != null) {
-      urlHandler.fetch(sanitizedUrl, (sourceData, messages) => {
+      urlHandler.fetch((sourceData, messages) => {
         let citation;
         if (sourceData != null) {
           citation = formatOptions.style.format(sourceData);
