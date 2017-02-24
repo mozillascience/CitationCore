@@ -6,10 +6,10 @@ class BasicCitationHandler extends SourceHandler {
     return url === 'test://basic';
   }
 
-  static fetch(url, cb) {
+  static fetch(cb) {
     const sourceData = new SourceData();
     sourceData.name = 'basic';
-    sourceData.authors = [{ name: 'Geddy Lee', email: 'geddy@rush.com' }];
+    sourceData.authors = [{ firstName: 'Geddy', middleName: null, lastName: 'Lee', email: 'geddy@rush.com' }];
     sourceData.version = '1.0.0';
     sourceData.releaseDate = new Date(2112, 12, 21);
     sourceData.url = 'http://rush.com';

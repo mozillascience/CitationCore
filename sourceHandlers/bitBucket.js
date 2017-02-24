@@ -24,7 +24,7 @@ class BitBucketAPIHandler extends SourceHandler {
     this.repoPath = repoPath;
   }
 
-  fetch(token, callback) {
+  fetch(callback) {
     async.parallel([
       // Fetches version data on the Repo
       (cb) => {
