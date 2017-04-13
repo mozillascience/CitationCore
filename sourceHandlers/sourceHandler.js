@@ -1,16 +1,16 @@
 /**
- * An abstract class responsible for coercing a code sources data into a {SourceData} object. This is not a stand
+ * An abstract class responsible for coercing a code sources data into a {SourceData} object.
  * @class
  * @memberof sourceHandlers
+ * @property {String} url - A URL to the Code Source to fetch data from
  */
 class SourceHandler {
   /**
-   * Determines if the handler can process the given URL.
-   * @param {string} url - The url to process
-   * @return {boolean} - True if teh handler can process the given URL.
+   * Creates a source handler that will create a source data object from the given URL.
+   * @param {String} a URL to the Code Source to fetch data from
    */
-  static canHandle(url) {
-    throw new Error('canHandle not implemented');
+  constructor(url) {
+    this.url = url;
   }
 
   /**
@@ -18,8 +18,8 @@ class SourceHandler {
    * @param {string} url - The url of the code source
    * @param {SourceHandler~fetchCallback} - The callback for the fetch operation.
    */
-  static fetch(url, callback) {
-    throw new Error('fetch not implemented');
+  fetch(callback) {
+    throw new Error(`${String(this)} does not implement fetch method`);
   }
 }
 
