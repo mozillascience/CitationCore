@@ -6,6 +6,7 @@
     "rules": {
         "max-len": "off",
         "brace-style": ["error", "stroustrup"],
-        "no-unused-vars": ["error", { "args": "none" }]
+        "no-unused-vars": ["error", { "args": "none" }],
+	"no-underscore-dangle": ["error", { "allowAfterThis": true }]
     }
 }
