@@ -13,13 +13,13 @@ const apiBaseUrl = 'https://api.github.com/';
  * @augments urlResolvers.URLResolver
  */
 class GitHubResolver extends URLResolver {
-  static getSourceHandlers(url) {
+  static getSourceHandlers(url, token) {
     const sourceHandlers = [];
     const repoInfo = this._parseURL(url);
     if (repoInfo != null) {
       const repoPath = `${repoInfo.owner}/${repoInfo.repoName}`;
 
-      sourceHandlers.push(new GitHubAPIHandler(apiBaseUrl, repoPath));
+      sourceHandlers.push(new GitHubAPIHandler(apiBaseUrl, repoPath, token));
     }
 
     return sourceHandlers;

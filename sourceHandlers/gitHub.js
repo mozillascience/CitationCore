@@ -18,9 +18,10 @@ class GitHubAPIHandler extends SourceHandler {
    * @param baseUrl {String} - The Base URL to the API.
    * @param repoPath {String} - The repo identifier. Generally in the form of "owner/repoName"
    */
-  constructor(baseUrl, repoPath) {
+  constructor(baseUrl, repoPath, token) {
     super(baseUrl);
     this.repoPath = repoPath;
+    this.token = token;
   }
 
   fetch(callback) {
@@ -85,7 +86,7 @@ class GitHubAPIHandler extends SourceHandler {
    */
   _sendApiRequest(path, cb) {
     const options = {
-      url: this.url + path,
+      url: `${this.url + path}?access_token=${this.token}`,
       headers: {
         'User-Agent': userAgent,
       },
