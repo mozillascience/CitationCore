@@ -27,7 +27,7 @@ module.exports = {
     // Strip http:// and www. if they exists
     const urlHandler = UrlResolverManager.getHandler(formatOptions.url);
     if (urlHandler != null) {
-      urlHandler.fetch(formatOptions.token, (sourceData, messages) => {
+      urlHandler.fetch(formatOptions.token ? formatOptions.token : null, (sourceData, messages) => {
         let citation;
         if (sourceData != null) {
           citation = formatOptions.style.format(sourceData);

@@ -26,11 +26,11 @@ class GitHubAPIHandler extends SourceHandler {
   fetch(token, callback) {
     // Setup async operation functions
     const fetchGeneralInfo = (cb) => {
-      this._sendApiRequest(`repos/${this.repoPath}?access_token=${token}`, cb);
+      this._sendApiRequest(token ? `repos/${this.repoPath}?access_token=${token}` : `repos/${this.repoPath}`, cb);
     };
 
     const fetchAuthorList = (cb) => {
-      this._sendApiRequest(`repos/${this.repoPath}/contributors?access_token=${token}`, (error, users) => {
+      this._sendApiRequest(token ? `repos/${this.repoPath}/contributors?access_token=${token}` : `repos/${this.repoPath}/contributors`, (error, users) => {
         if (error == null) {
           const userLogins = users.map(obj => obj.login).filter((obj, index) => index < 3);
 
@@ -43,7 +43,7 @@ class GitHubAPIHandler extends SourceHandler {
     };
 
     const fetchVersionInfo = (cb) => {
-      this._sendApiRequest(`repos/${this.repoPath}/releases?access_token=${token}`, cb);
+      this._sendApiRequest(token ? `repos/${this.repoPath}/releases?access_token=${token}` : `repos/${this.repoPath}/releases`, cb);
     };
 
     // Perform Async operations
