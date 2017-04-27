@@ -18,20 +18,19 @@ class GitHubAPIHandler extends SourceHandler {
    * @param baseUrl {String} - The Base URL to the API.
    * @param repoPath {String} - The repo identifier. Generally in the form of "owner/repoName"
    */
-  constructor(baseUrl, repoPath, token) {
+  constructor(baseUrl, repoPath) {
     super(baseUrl);
     this.repoPath = repoPath;
-    this.token = token;
   }
 
-  fetch(callback) {
+  fetch(token, callback) {
     // Setup async operation functions
     const fetchGeneralInfo = (cb) => {
-      this._sendApiRequest(`repos/${this.repoPath}`, cb);
+      this._sendApiRequest(`repos/${this.repoPath}?access_token=${token}`, cb);
     };
 
     const fetchAuthorList = (cb) => {
-      this._sendApiRequest(`repos/${this.repoPath}/contributors`, (error, users) => {
+      this._sendApiRequest(`repos/${this.repoPath}/contributors?access_token=${token}`, (error, users) => {
         if (error == null) {
           const userLogins = users.map(obj => obj.login).filter((obj, index) => index < 3);
 
@@ -44,7 +43,7 @@ class GitHubAPIHandler extends SourceHandler {
     };
 
     const fetchVersionInfo = (cb) => {
-      this._sendApiRequest(`repos/${this.repoPath}/releases`, cb);
+      this._sendApiRequest(`repos/${this.repoPath}/releases?access_token=${token}`, cb);
     };
 
     // Perform Async operations
@@ -86,7 +85,7 @@ class GitHubAPIHandler extends SourceHandler {
    */
   _sendApiRequest(path, cb) {
     const options = {
-      url: `${this.url + path}?access_token=${this.token}`,
+      url: this.url + path,
       headers: {
         'User-Agent': userAgent,
       },
