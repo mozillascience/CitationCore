@@ -11,6 +11,7 @@ class FormatOptions {
   constructor() {
     this.url = '';
     this.style = BibTextSoftwareStyle;
+    this.token = '';
   }
 }
 

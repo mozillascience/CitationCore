@@ -5,7 +5,7 @@ CitationCore is a framework designed to genreate a citation string given a URL t
 ## Install
 CitationCore is distributed through npm. To install:
 ```
-npm insall citation-core
+npm install citation-core
 ```
 ## Contributor Install
 If you are interested in contributing to citation-core please follow these install instructions. They will add a pre-commit hook that will run our linter and reject commits that do not meet the project's coding standards.  We are adhereing to the [AirBnb style guide](https://github.com/airbnb/javascript). 
