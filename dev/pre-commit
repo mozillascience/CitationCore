@@ -16,6 +16,8 @@ for file in ${files}; do
   if [ "$check" == "" ] && [ "$output" != "" ]; then
     passing=false
   fi
+
+  $(git add $file)
 done
 
 if $passing; then
