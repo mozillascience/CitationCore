@@ -23,18 +23,18 @@ class GitHubAPIHandler extends SourceHandler {
     this.repoPath = repoPath;
   }
 
-  fetch(token, callback) {
+  fetch(callback, token) {
     // Setup async operation functions
     const fetchGeneralInfo = (cb) => {
-      this._sendApiRequest(token ? `repos/${this.repoPath}?access_token=${token}` : `repos/${this.repoPath}`, cb);
+      this._sendApiRequest(`repos/${this.repoPath}`, token, cb);
     };
 
     const fetchAuthorList = (cb) => {
-      this._sendApiRequest(token ? `repos/${this.repoPath}/contributors?access_token=${token}` : `repos/${this.repoPath}/contributors`, (error, users) => {
+      this._sendApiRequest(`repos/${this.repoPath}/contributors`, token, (error, users) => {
         if (error == null) {
           const userLogins = users.map(obj => obj.login).filter((obj, index) => index < 3);
 
-          this._fetchAuthors(userLogins, cb);
+          this._fetchAuthors(userLogins, token, cb);
         }
         else {
           cb(error, users);
@@ -43,7 +43,7 @@ class GitHubAPIHandler extends SourceHandler {
     };
 
     const fetchVersionInfo = (cb) => {
-      this._sendApiRequest(token ? `repos/${this.repoPath}/releases?access_token=${token}` : `repos/${this.repoPath}/releases`, cb);
+      this._sendApiRequest(`repos/${this.repoPath}/releases`, token, cb);
     };
 
     // Perform Async operations
@@ -83,9 +83,10 @@ class GitHubAPIHandler extends SourceHandler {
    * @param {Function} cb - The callback function. Follows the error/response parameter pattern.
    * The response param will be json parsed object.
    */
-  _sendApiRequest(path, cb) {
+  _sendApiRequest(path, token, cb) {
+    const tokenString = token ? `?access_token=${token}` : '';
     const options = {
-      url: this.url + path,
+      url: this.url + path + tokenString,
       headers: {
         'User-Agent': userAgent,
       },
@@ -110,26 +111,17 @@ class GitHubAPIHandler extends SourceHandler {
    * @param {Function} callback - The callback function. Follows the error response parameter pattern.
    * The response parameter is an array of Author objects
    */
-  _fetchAuthors(gitHubLogins, callback) {
+  _fetchAuthors(gitHubLogins, token, callback) {
     // Generate the requests that will feth the github user information
     const userFetchOperations = gitHubLogins.map((obj, index) => (cb) => {
-      this._sendApiRequest(`users/${obj}`, (error, res) => {
+      this._sendApiRequest(`users/${obj}`, token, (error, res) => {
         cb(error, res);
       });
     });
 
     // Execute those requests in parallel and generate the generic user objects
     async.parallel(userFetchOperations, (error, results) => {
-      callback(error, results.map((obj) => {
-        const namePieces = (obj.name != null && typeof (obj.name) === 'string') ? obj.name.split(' ') : [];
-
-        return {
-          lastName: (namePieces.length > 0) ? namePieces.pop() : null,
-          middleName: (namePieces.length > 1) ? namePieces.splice(1 - namePieces.length).join(' ') : null,
-          firstName: (namePieces.length > 0) ? namePieces.pop() : null,
-          email: obj.email,
-        };
-      }));
+      callback(error, results.map((obj) => this._createAuthorObj(obj.name, obj.email)));
     });
   }
 }

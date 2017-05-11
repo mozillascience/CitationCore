@@ -27,14 +27,14 @@ module.exports = {
     // Strip http:// and www. if they exists
     const urlHandler = UrlResolverManager.getHandler(formatOptions.url);
     if (urlHandler != null) {
-      urlHandler.fetch(formatOptions.token ? formatOptions.token : null, (sourceData, messages) => {
+      urlHandler.fetch((sourceData, messages) => {
         let citation;
         if (sourceData != null) {
           citation = formatOptions.style.format(sourceData);
         }
 
         callback(citation, messages);
-      });
+      }, formatOptions.token ? formatOptions.token : null);
     }
     else {
       callback(null, [new Error(`"${formatOptions.url}" is an unsupported source`)]);
