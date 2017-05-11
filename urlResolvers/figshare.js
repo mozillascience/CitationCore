@@ -2,7 +2,7 @@ const URLResolver = require('./urlResolver');
 const FigshareAPIHandler = require('../sourceHandlers/figshare');
 
 const stripHttp = /^(https?:\/\/)?(www\.)?/;
-const urlRegex = /^figshare\.com\/articles(\/\w+)?\/\d+$/;
+const urlRegex = /^figshare\.com\/articles(\/[\w-]+)?\/\d+$/;
 
 const apiBaseUrl = 'https://api.figshare.com/v2/';
 
