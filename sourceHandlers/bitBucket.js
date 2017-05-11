@@ -140,7 +140,8 @@ class BitBucketAPIHandler extends SourceHandler {
   }
 
   /**
-   * Gets all commits for the repository, needed to
+   * Gets all commits for the repository, needed to gather all commits to allows the system to get all the contributors.
+   * Then passes that back to fetch to get the top contributors.
    * @param  {string}   url  Will take in either a part of the string or the whole string
    * @param  {string}   path Either the path to the repo or an empty string.
    * @param  {JSON}   obj    The collected object of users that gets built and passed back in the callback.
