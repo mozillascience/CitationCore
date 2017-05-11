@@ -47,6 +47,8 @@ The style template of the output citation. The framework currently supports the 
 ```javascript
 formatOptions.style = CitationCore.styles.apa;
 ```
+#### API Token
+A token field for GitHub OAuth. Required for GitHub URL's.
 ### Errors
 The callback for the `generate` function second parameters is an array of errors. Not all errors are created equal. Some errors are critical and will halt generation, however some will be a warning.  In this case the citation genreation will complete. If the citationStr parameter is `null` a critical error has occured.
 
