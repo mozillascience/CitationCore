@@ -121,7 +121,7 @@ class GitHubAPIHandler extends SourceHandler {
 
     // Execute those requests in parallel and generate the generic user objects
     async.parallel(userFetchOperations, (error, results) => {
-      callback(error, results.map((obj) => this._createAuthorObj(obj.name, obj.email);
+      callback(error, results.map((obj) => this._createAuthorObj(obj.name, obj.email)));
     });
   }
 }
