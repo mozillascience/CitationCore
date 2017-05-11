@@ -1,7 +1,6 @@
 const GithubAPI = require('./urlResolvers/gitHub');
-const BitBucketAPI = require('./urlResolvers/bitBucket');
 
-const resolvers = [GithubAPI, BitBucketAPI];
+const resolvers = [GithubAPI];
 
 /**
  * A module for resolving a URL to a source handler.
