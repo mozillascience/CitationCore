@@ -8,9 +8,9 @@ const userAgent = 'SoftwareCitationCore';
 
 /*
  * Creates and sends a request for the BitBucket API.
- * @private
+ * @param {string} url - the base url for the bitbucket api
  * @param {string} path - The path of the url.  This does not include the base path.  For example if you
- * want to send a request to 'http://api.github.com/repos/apple/swift' use 'repos/apple/swift'.
+ * want to send a request to 'https://bitbucket.org/fenics-project/ferari-retired' use 'enics-project/ferari-retired'.
  * @param {Function} cb - The callback function. Follows the error/response parameter pattern.
  * The response param will be json parsed object.
  */
@@ -34,11 +34,12 @@ function sendApiRequest(url, path, cb) {
   });
 }
 
-/*
- * Quries the the BitBucket API to get the authors of a project
- * @param {string[]} gitHubLogins - An array of BitBucket username to query for information.
- * @param {Function} callback - The callback function. Follows the error response parameter pattern.
- * The response parameter is an array of Author objects
+/**
+ * [getAllCommits description]
+ * @param  {string}   url  Will take in either a part of the string or the whole string
+ * @param  {string}   path Either the path to the repo or an empty string.
+ * @param  {JSON}   obj    The collected object of users that gets built and passed back in the callback.
+ * @param  {Function} cb   The callback function, the response that will be used after this completes.
  */
 function getAllCommits(url, path, obj, cb) {
   sendApiRequest(url, path, (error, apiValReturn) => {
@@ -110,8 +111,9 @@ class BitBucketAPIHandler extends SourceHandler {
         sourceData.releaseDate = new Date(generalData.updated_on);
         sourceData.description = generalData.description;
         const authorList = [];
-        // Author Info
+        // Iterate over the json object by their emails
         for (const key of Object.keys(results[1])) {
+          // Check if the first value is not set, or if the current count is greater than the first count in author list
           if (authorList[0] === undefined || results[1][key].count >= authorList[0].count) {
             authorList.splice(0, 0, {
               firstName: results[1][key].firstName,
@@ -120,10 +122,13 @@ class BitBucketAPIHandler extends SourceHandler {
               email: key,
               count: results[1][key].count,
             });
+            // if the list is longer than 3 elements, then pop the last/smallest count.
             if (authorList.length > 3) {
               authorList.pop();
             }
           }
+          // if the second element is undefined, or the current result is greater or equal to the
+          // 2 count in author list but less than first element then splice it in.
           else if (authorList[1] === undefined || (results[1][key].count >= authorList[1].count && results[1][key].count < authorList[0].count)) {
             authorList.splice(1, 0, {
               firstName: results[1][key].firstName,
@@ -132,10 +137,13 @@ class BitBucketAPIHandler extends SourceHandler {
               email: key,
               count: results[1][key].count,
             });
+             // if the list is longer than 3 elements, then pop the last/smallest count.
             if (authorList.length > 3) {
               authorList.pop();
             }
           }
+          // If the third element is does not exist, or the current object is greater than the
+          // third element in the list but less than the second splice it in.
           else if (authorList[2] === undefined || (results[1][key].count >= authorList[2].count && results[1][key].count < authorList[1].count)) {
             authorList.splice(2, 0, {
               firstName: results[1][key].firstName,
@@ -144,17 +152,19 @@ class BitBucketAPIHandler extends SourceHandler {
               email: key,
               count: results[1][key].count,
             });
+            // if the list is longer than 3 elements, then pop the last/smallest count.
             if (authorList.length > 3) {
               authorList.pop();
             }
           }
         }
+        // set the 3 top authors to be cited.
         sourceData.authors = authorList;
 
         // Version Data
         const versions = results[0];
         if (versions.length > 0) {
-          sourceData.version = versions[0].name || versions[1].tag_name;
+          sourceData.version = versions[0].name || versions[1].tag_name || null;
         }
         callback(sourceData, []);
       }
