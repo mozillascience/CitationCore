@@ -23,7 +23,7 @@ class GitHubAPIHandler extends SourceHandler {
     this.repoPath = repoPath;
   }
 
-  fetch(token, callback) {
+  fetch(callback, token) {
     // Setup async operation functions
     const fetchGeneralInfo = (cb) => {
       this._sendApiRequest(`repos/${this.repoPath}`, token, cb);
@@ -121,16 +121,7 @@ class GitHubAPIHandler extends SourceHandler {
 
     // Execute those requests in parallel and generate the generic user objects
     async.parallel(userFetchOperations, (error, results) => {
-      callback(error, results.map((obj) => {
-        const namePieces = (obj.name != null && typeof (obj.name) === 'string') ? obj.name.split(' ') : [];
-
-        return {
-          lastName: (namePieces.length > 0) ? namePieces.pop() : null,
-          middleName: (namePieces.length > 1) ? namePieces.splice(1 - namePieces.length).join(' ') : null,
-          firstName: (namePieces.length > 0) ? namePieces.pop() : null,
-          email: obj.email,
-        };
-      }));
+      callback(error, results.map((obj) => this._createAuthorObj(obj.name, obj.email);
     });
   }
 }
