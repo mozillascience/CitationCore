@@ -5,11 +5,6 @@
     ],
     "rules": {
         "max-len": "off",
-        "class-methods-use-this": "off",
-        "no-param-reassign": "off",
-        "no-nested-ternary": "off",
-        "no-mixed-operators": "off",
-        "no-restricted-syntax": "off",
         "brace-style": ["error", "stroustrup"],
         "no-unused-vars": ["error", { "args": "none" }],
 	"no-underscore-dangle": ["error", { "allowAfterThis": true }]
