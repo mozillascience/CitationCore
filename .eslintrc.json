@@ -5,6 +5,7 @@
     ],
     "rules": {
         "max-len": "off",
+        "class-methods-use-this": "off",
         "no-param-reassign": "off",
         "no-nested-ternary": "off",
         "no-mixed-operators": "off",

@@ -6,69 +6,6 @@ const SourceHandler = require('./sourceHandler');
 const userAgent = 'SoftwareCitationCore';
 
 
-/*
- * Creates and sends a request for the BitBucket API.
- * @param {string} url - the base url for the bitbucket api
- * @param {string} path - The path of the url.  This does not include the base path.  For example if you
- * want to send a request to 'https://bitbucket.org/fenics-project/ferari-retired' use 'enics-project/ferari-retired'.
- * @param {Function} cb - The callback function. Follows the error/response parameter pattern.
- * The response param will be json parsed object.
- */
-function sendApiRequest(url, path, cb) {
-  const options = {
-    url: url + path,
-    headers: {
-      'User-Agent': userAgent,
-    },
-  };
-
-  request(options, (error, response, body) => {
-    const parsedBody = (body != null) ? JSON.parse(body) : null;
-    if (error == null && response.statusCode !== 200) {
-      const errorMessage = `Received a ${response.statusCode} when making a request to ${options.url}`;
-      cb(new Error(errorMessage), parsedBody);
-    }
-    else {
-      cb(error, parsedBody);
-    }
-  });
-}
-
-/**
- * [getAllCommits description]
- * @param  {string}   url  Will take in either a part of the string or the whole string
- * @param  {string}   path Either the path to the repo or an empty string.
- * @param  {JSON}   obj    The collected object of users that gets built and passed back in the callback.
- * @param  {Function} cb   The callback function, the response that will be used after this completes.
- */
-function getAllCommits(url, path, obj, cb) {
-  sendApiRequest(url, path, (error, apiValReturn) => {
-    apiValReturn.values.forEach((object) => {
-      const authorPieces = object.author.raw.split(' ');
-      const emailPiece = authorPieces.pop();
-      const email = emailPiece.substring(1, emailPiece.length - 1);
-      if (obj[`${email}`]) {
-        obj[`${email}`].count += 1;
-      }
-      else {
-        obj[email] = {
-          count: 1,
-          lastName: (authorPieces.length === 3) ? authorPieces[2] : (authorPieces.length === 2) ? authorPieces[1] : authorPieces[0],
-          middleName: (authorPieces.length === 3) ? authorPieces[1] : null,
-          firstName: (authorPieces.length > 1) ? authorPieces[0] : null,
-        };
-      }
-    });
-    if (apiValReturn.next !== undefined) {
-      getAllCommits(apiValReturn.next, '', obj, cb);
-    }
-    else {
-      cb(error, obj);
-    }
-  });
-}
-
-
 /**
  * URL Handler for Bitbucket
  * @class BitBucketAPIHandler
@@ -91,15 +28,15 @@ class BitBucketAPIHandler extends SourceHandler {
     async.parallel([
       // Fetches version data on the Repo
       (cb) => {
-        sendApiRequest(this.url, `${this.repoPath}/versions`, cb);
+        this._sendApiRequest(this.url, `${this.repoPath}/versions`, cb);
       },
       // Fetches the author data
       (cb) => {
-        getAllCommits(this.url, `${this.repoPath}/commits`, {}, cb);
+        this._getAllCommits(this.url, `${this.repoPath}/commits`, {}, cb);
       },
       // Fetch General data
       (cb) => {
-        sendApiRequest(this.url, `${this.repoPath}`, cb);
+        this._sendApiRequest(this.url, `${this.repoPath}`, cb);
       },
     ], (error, results) => {
       if (error === null) {
@@ -170,6 +107,68 @@ class BitBucketAPIHandler extends SourceHandler {
       }
       else {
         callback(null, [error]);
+      }
+    });
+  }
+
+  /*
+   * Creates and sends a request for the BitBucket API.
+   * @param {string} url - the base url for the bitbucket api
+   * @param {string} path - The path of the url.  This does not include the base path.  For example if you
+   * want to send a request to 'https://bitbucket.org/fenics-project/ferari-retired' use 'enics-project/ferari-retired'.
+   * @param {Function} cb - The callback function. Follows the error/response parameter pattern.
+   * The response param will be json parsed object.
+   */
+  _sendApiRequest(url, path, cb) {
+    const options = {
+      url: url + path,
+      headers: {
+        'User-Agent': userAgent,
+      },
+    };
+
+    request(options, (error, response, body) => {
+      const parsedBody = (body != null) ? JSON.parse(body) : null;
+      if (error == null && response.statusCode !== 200) {
+        const errorMessage = `Received a ${response.statusCode} when making a request to ${options.url}`;
+        cb(new Error(errorMessage), parsedBody);
+      }
+      else {
+        cb(error, parsedBody);
+      }
+    });
+  }
+
+  /**
+   * Gets all commits for the repository, needed to
+   * @param  {string}   url  Will take in either a part of the string or the whole string
+   * @param  {string}   path Either the path to the repo or an empty string.
+   * @param  {JSON}   obj    The collected object of users that gets built and passed back in the callback.
+   * @param  {Function} cb   The callback function, the response that will be used after this completes.
+   */
+  _getAllCommits(url, path, obj, cb) {
+    this._sendApiRequest(url, path, (error, apiValReturn) => {
+      apiValReturn.values.forEach((object) => {
+        const authorPieces = object.author.raw.split(' ');
+        const emailPiece = authorPieces.pop();
+        const email = emailPiece.substring(1, emailPiece.length - 1);
+        if (obj[`${email}`]) {
+          obj[`${email}`].count += 1;
+        }
+        else {
+          obj[email] = {
+            count: 1,
+            lastName: (authorPieces.length === 3) ? authorPieces[2] : (authorPieces.length === 2) ? authorPieces[1] : authorPieces[0],
+            middleName: (authorPieces.length === 3) ? authorPieces[1] : null,
+            firstName: (authorPieces.length > 1) ? authorPieces[0] : null,
+          };
+        }
+      });
+      if (apiValReturn.next === undefined) {
+        cb(error, obj);
+      }
+      else {
+        this._getAllCommits(apiValReturn.next, '', obj, cb);
       }
     });
   }
