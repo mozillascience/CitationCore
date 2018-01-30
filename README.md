@@ -1,6 +1,6 @@
 # citation-core
 
-CitationCore is a framework designed to genreate a citation string given a URL to a code source like a GitHub or Bitbucket repository.  It is part of a larger effort, lead by Mozilla Science Lab, to develop a suite of tools that aim to implement a standard for citing software and making it easier to cite software correctly.  To learn more about this project you can visit the [Software Citation Tools repository](https://github.com/mozillascience/software-citation-tools).
+CitationCore is a framework designed to generate a citation string given a URL to a code source like a GitHub or Bitbucket repository.  It is part of a larger effort, lead by Mozilla Science Lab, to develop a suite of tools that aim to implement a standard for citing software and making it easier to cite software correctly.  To learn more about this project you can visit the [Software Citation Tools repository](https://github.com/mozillascience/software-citation-tools).
 
 ## Install
 CitationCore is distributed through npm. To install:
@@ -8,7 +8,7 @@ CitationCore is distributed through npm. To install:
 npm install citation-core
 ```
 ## Contributor Install
-If you are interested in contributing to citation-core please follow these install instructions. They will add a pre-commit hook that will run our linter and reject commits that do not meet the project's coding standards.  We are adhereing to the [AirBnb style guide](https://github.com/airbnb/javascript). 
+If you are interested in contributing to citation-core please follow these install instructions. They will add a pre-commit hook that will run our linter and reject commits that do not meet the project's coding standards.  We are adhering to the [AirBnb style guide](https://github.com/airbnb/javascript). 
 ```
 git clone https://github.com/mozillascience/CitationCore.git
 cd CitationCore
@@ -50,7 +50,7 @@ formatOptions.style = CitationCore.styles.apa;
 #### API Token
 A token field for GitHub OAuth. Required for GitHub URL's.
 ### Errors
-The callback for the `generate` function second parameters is an array of errors. Not all errors are created equal. Some errors are critical and will halt generation, however some will be a warning.  In this case the citation genreation will complete. If the citationStr parameter is `null` a critical error has occured.
+The callback for the `generate` function second parameters is an array of errors. Not all errors are created equal. Some errors are critical and will halt generation, however some will be a warning.  In this case the citation generation will complete. If the citationStr parameter is `null` a critical error has occurred.
 
 ## API Documentation
 [API Documentation](https://mozillascience.github.io/CitationCore/) is viewable on github pages or locally in the docs directory.
